@@ -4,17 +4,17 @@ from empresa.models import Empresa
 
 
 class EmpresaSerializer(serializers.ModelSerializer):
-    pai = serializers.SerializerMethodField()
+    mae = serializers.SerializerMethodField()
 
     class Meta:
         model = Empresa
         fields = '__all__'
 
     @staticmethod
-    def get_pai(instance):
+    def get_mae(instance):
         codigo = instance.codigo
         empresa = Empresa.objects.filter(codigo=codigo).first()
-        pai = empresa.get_parent()
-        if pai:
-            return pai.nome
+        mae = empresa.get_parent()
+        if mae:
+            return mae.nome
         return None
